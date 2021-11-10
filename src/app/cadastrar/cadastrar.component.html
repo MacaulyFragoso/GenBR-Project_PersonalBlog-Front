@@ -15,7 +15,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="usuario">Usuário</label>
-                                    <input  type="usuario"
+                                    <input [(ngModel]="userModel.nome")]
+                                            type="usuario"
                                             class="form-control"
                                             id="usuario"
                                             formControlName="usuario"
@@ -23,7 +24,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="foto">Link da foto</label>
-                                    <input  type="text"
+                                    <input [(ngModel]="userModel.foto")]
+                                            type="text"
                                             class="form-control"
                                             id="foto"
                                             formControlName="foto"
@@ -31,7 +33,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="senha">Senha</label>
-                                    <input  type="password"
+                                    <input (input)="confirmarSenha($event)"
+                                            type="password"
                                             class="form-control"
                                             id="senha"
                                             formControlName="senha"
@@ -39,7 +42,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="confirmarSenha">Confirmar Senha</label>
-                                    <input  type="password"
+                                    <input [(ngModel]="userModel.senha"]
+                                            type="password"
                                             class="form-control"
                                             id="confirmarSenha"
                                             formControlName="confirmarSenha"
@@ -47,7 +51,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="tipo">Tipo de usuário</label>
-                                    <select class="form-control"
+                                    <select (change)="tipoUsuario($event)"
+                                            class="form-control"
                                             name="tipo"
                                             id="tipo">
                                         <option>Selecione um tipo de usuário:</option>
@@ -57,7 +62,7 @@
                             </div>
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-danger mr-4" routerLink='/entrar'>Cancelar</button>
-                                <button type="submit" class="btn btn-success">Cadastrar</button>
+                                <button type="submit" class="btn btn-success" (click)="cadastrar()">Cadastrar</button>
                             </div>
                 </div>
             </div>
