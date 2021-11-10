@@ -21,4 +21,8 @@ export class AuthService {
     return this.http.post<UserModel>('http://localhost:8080/usuario/cadastrar', userModel);
   }
 
+  logado(){
+    
+  }
+
   }
