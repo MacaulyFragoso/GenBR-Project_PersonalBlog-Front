@@ -13,17 +13,22 @@ import { PostagemService } from '../service/postagem.service';
 })
 export class InicioComponent implements OnInit {
 
-  themeModel: ThemeModel = new ThemeModel();
   PostModel: PostModel = new PostModel();
+  listaPostagens: PostModel[];
+
+  themeModel: ThemeModel = new ThemeModel();
   listaTemas: ThemeModel[];
   idTema: number;
+
   UserLoginModel: UserLoginModel = new UserLoginModel();
   idUser: environment.id
 
   constructor(
     private router: Router,
     private postagemService: PostagemService,
-    private temaService: TemaService
+    private temaService: TemaService,
+    private authService: AuthService
+
   ) { }
 
   ngOnInit(){
@@ -34,6 +39,7 @@ export class InicioComponent implements OnInit {
     }
 
     this.getAllTemas();
+    this.getAllPostagens();
 
   }
 
@@ -50,6 +56,18 @@ export class InicioComponent implements OnInit {
 
   }
 
+  getAllPostagens(){
+    this.postagemService.getAllPostagens().subscribe((resp: PostModel[]) => {
+      this.listaPostagens = resp;
+    })
+  }
+
+  findByIdUser(){
+    this.authService.getByIdUser(this.idUser).subscribe((resp: UserModel) => {
+      this.UserModel = resp;
+
+  }
+
     publicar(){
       this.tema.id = this.idTema;
       this.PostModel.tema = this.themeModel;
@@ -61,10 +79,9 @@ export class InicioComponent implements OnInit {
         this.PostModel = resp;
         alert("Postagem realizada com sucesso!");
         this.PostModel = new PostModel();
+        this.getAllPostagens();
       })
 
     }
 
 }
-
-
