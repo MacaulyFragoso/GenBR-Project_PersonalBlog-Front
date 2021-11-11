@@ -8,6 +8,9 @@ import { ThemeModel } from '../model/ThemeModel';
   providedIn: 'root'
 })
 export class TemaService {
+  findByIdTema(id: number) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private http: HttpClient) { }
 
