@@ -7,5 +7,5 @@ export class PostModel {
     public texto: string;
     public date: Date;
     public usuario: UserModel;
-    public tema: ThemeModel[];
+    public tema: ThemeModel;
 }
