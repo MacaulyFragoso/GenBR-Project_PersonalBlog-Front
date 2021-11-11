@@ -26,12 +26,21 @@ export class TemaComponent implements OnInit {
       this.router.navigate(['/entrar']);
     }
 
+    this.findAllTemas();
+
+  }
+
+  findAllTemas(){
+    this.temaService.getAllTemas().subscribe((resp: ThemeModel[]) => {
+      this.listaTemas = resp;
+    })
   }
 
   cadastrar(){
     this.temaService.postTema(this.themeModel).subscribe((resp: ThemeModel) => {
       this.themeModel = resp;
       alert("Tema cadastrado com sucesso!");
+      this.findAllTemas();
       this.themeModel = new ThemeModel();
     } );
 
