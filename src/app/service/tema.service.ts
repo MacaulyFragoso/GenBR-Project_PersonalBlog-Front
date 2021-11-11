@@ -8,6 +8,9 @@ import { ThemeModel } from '../model/ThemeModel';
   providedIn: 'root'
 })
 export class TemaService {
+  findByIdTema(id: number) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -20,8 +23,20 @@ export class TemaService {
 
   }
 
+  getByIdTema(id: number): Observable<ThemeModel>{
+    return this.http.get<ThemeModel>(`http://localhost:8080/tema/${id}`, this.token);
+  }
+
   postTema(tema: ThemeModel): Observable<ThemeModel>{
     return this.http.post<ThemeModel>("http://localhost:8080/tema", tema, this.token);
+  }
+
+  putTema(tema: ThemeModel): Observable<ThemeModel>{
+    return this.http.put<ThemeModel>("http://localhost:8080/tema", tema, this.token);
+  }
+
+  deleteTema(id: number){
+    return this.http.delete(`http://localhost:8080/tema/${id}`, this.token)
   }
 
 }
