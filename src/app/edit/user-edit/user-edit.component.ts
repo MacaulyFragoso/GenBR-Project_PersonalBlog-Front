@@ -14,6 +14,8 @@ export class UserEditComponent implements OnInit {
 
   userLoginModel: UserLoginModel = new UserLoginModel();
   idUsuario: number;
+  comfirmarSenha: string;
+  tipoUsuario: string;
 
   constructor(
     private AuthService: AuthService,
@@ -23,7 +25,7 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-    window.scrollTo(0, 0);
+    window.scroll(0, 0);
 
     if(environment.token == ""){
       this.router.navigate(['/entrar']);
@@ -32,17 +34,37 @@ export class UserEditComponent implements OnInit {
     this.findByIdUsuario(this.idUsuario);
   }
 
-  confirmarSenha(event: any){
-
-}
-
-  tipoUsuario(event: any){
-
-}
-
-  atualizar(){
+  confirmarSenha(event: any) {
+    this.confirmarSenha = event.target.value;
 
   }
+
+  tipoUsuario(event: any) {
+    this.tipoUsuario = event.target.value;
+  }
+
+  atualizar(){
+    this.userModel.tipo = this.tipoUser;
+
+    if(this.userModel.senha != this.confirmaSenha){
+      alert("Senhas não conferem");
+
+    }else{
+      this.authService.cadastrar(this.userModel).subscribe((resp: UserModel) => {
+        this.userModel = resp;
+        this.router.navigate(['/inicio']);
+          alert("Cadastro atualizado com sucesso, faça o login novamente.");
+          environment.token = ''
+          environment.nome = ''
+          environment.foto = ''
+          environment.id = 0
+          this.router.navigate(['/entrar'])
+
+    })
+
+  }
+
+}
 
   findByIdUsuario(id: number){
     this.AuthService.getByIdUserModel(id).subscribe((resp: UserModel) => {
