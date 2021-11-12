@@ -1,6 +1,5 @@
 import { ThemeModel } from './../../model/ThemeModel';
 import { environment } from './../../../environments/environment.prod';
-import { Observable } from 'rxjs';
 import { PostModel } from './../../model/PostModel';
 import { Component, OnInit } from '@angular/core';
 import { PostagemService } from 'src/app/service/postagem.service';
@@ -27,6 +26,9 @@ export class PostagemEditComponent implements OnInit {
   ) { }
 
   ngOnInit(){
+
+    window.scroll(0,0);
+
     if(environment.token == ''){
       this.router.navigate(['/entrar']);
     }

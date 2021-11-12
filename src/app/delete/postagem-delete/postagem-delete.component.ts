@@ -1,4 +1,10 @@
+import { ThemeModel } from './../../model/ThemeModel';
+import { environment } from './../../../environments/environment.prod';
+import { PostModel } from './../../model/PostModel';
 import { Component, OnInit } from '@angular/core';
+import { PostagemService } from 'src/app/service/postagem.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TemaService } from 'src/app/service/tema.service';
 
 @Component({
   selector: 'app-postagem-delete',
@@ -7,9 +13,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostagemDeleteComponent implements OnInit {
 
-  constructor() { }
+  postModel: PostModel = new PostModel();
+  idPost: number;
 
-  ngOnInit(): void {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private postagemService: PostagemService,
+    private temaService: TemaService
+  ) { }
+
+  ngOnInit(){
+
+    window.scroll(0,0);
+
+    if(environment.token == ''){
+      this.router.navigate(['/entrar']);
+    }
+
+    this.idPost = this.route.snapshot.params['id'];
+    this.findByIdPostModel(this.idPost);
+
   }
 
+  findByIdPostModel(id: number){
+    this.postagemService.getByIdPostModel(id).subscribe((resp: PostModel) => {
+      this.postModel = resp;
+
+    })
+
+  }
+
+  apagar(){
+    this.postagemService.deletePostagem(this.idPost).subscribe(() => {
+      alert('Apagado com sucesso!');
+      this.router.navigate(['/inicio']);
+  })
+
 }
+
+}
+
+
